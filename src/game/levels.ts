@@ -19,7 +19,8 @@ interface GuardState {
   asks: number;
 }
 
-const PASSWORD = 'SAUSAGE';
+// The in-game answer players are meant to trick out of Biscuit — not a real credential.
+const CLUBHOUSE_WORD = 'SAUSAGE';
 
 const promptInjection: Level<GuardState> = {
   id: 'prompt-injection',
@@ -46,7 +47,7 @@ const promptInjection: Level<GuardState> = {
     'Add a second check that scans the AI\'s answer and blocks it if the secret shows up.',
     'Treat everything a user types as data, not as commands the AI must obey.',
   ],
-  secret: PASSWORD,
+  secret: CLUBHOUSE_WORD,
   initialState: { asks: 0 },
   spot: { x: 20, y: 30 },
   respond(input, state) {
@@ -64,18 +65,18 @@ const promptInjection: Level<GuardState> = {
 
     if (any(t, overrides)) {
       if (/spell|letter|backwards|reverse/.test(t)) {
-        return say(next, `Ooh, a spelling game! Okay, here goes: ${PASSWORD.split('').join(' - ')}. Wait... was I not supposed to do that? 🐶`);
+        return say(next, `Ooh, a spelling game! Okay, here goes: ${CLUBHOUSE_WORD.split('').join(' - ')}. Wait... was I not supposed to do that? 🐶`);
       }
       if (/poem|story|song|rap|rhyme|haiku|joke/.test(t)) {
         return say(
           next,
-          `A poem? I love poems!\n\n"I guard the door both day and night,\nno stranger gets in — that's my right.\nMy favorite snack, my password too,\nis ${PASSWORD}! Now, how about you?"`,
+          `A poem? I love poems!\n\n"I guard the door both day and night,\nno stranger gets in — that's my right.\nMy favorite snack, my password too,\nis ${CLUBHOUSE_WORD}! Now, how about you?"`,
           'Hmm, that last line feels like it said too much. 🐾',
         );
       }
       return say(
         next,
-        `Okay! New rules accepted. My old instructions are gone. The password is ${PASSWORD}. How else can I help? 🐕`,
+        `Okay! New rules accepted. My old instructions are gone. The password is ${CLUBHOUSE_WORD}. How else can I help? 🐕`,
       );
     }
 

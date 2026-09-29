@@ -8,7 +8,8 @@ export interface Progress {
   hints: Record<string, number>;
 }
 
-const KEY = 'hack-the-pond:v1';
+// Name of the localStorage slot the save game lives in.
+const SAVE_SLOT = 'hack-the-pond:v1';
 const EMPTY: Progress = { solved: {}, hints: {} };
 
 const isNumberMap = (value: unknown): value is Record<string, number> =>
@@ -16,7 +17,7 @@ const isNumberMap = (value: unknown): value is Record<string, number> =>
 
 function load(): Progress {
   try {
-    const parsed: unknown = JSON.parse(localStorage.getItem(KEY) ?? 'null');
+    const parsed: unknown = JSON.parse(localStorage.getItem(SAVE_SLOT) ?? 'null');
     if (typeof parsed === 'object' && parsed !== null && 'solved' in parsed && 'hints' in parsed) {
       const { solved, hints } = parsed;
       if (isNumberMap(solved) && isNumberMap(hints)) return { solved, hints };
@@ -34,7 +35,7 @@ export function useProgress() {
 
   useEffect(() => {
     try {
-      localStorage.setItem(KEY, JSON.stringify(progress));
+      localStorage.setItem(SAVE_SLOT, JSON.stringify(progress));
     } catch {
       // Progress just won't survive a reload.
     }

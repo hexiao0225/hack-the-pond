@@ -61,8 +61,8 @@ The game teaches security, so it tries to practice it too:
 - **No HTML injection.** Chat text is rendered only as React text nodes, and `dangerouslySetInnerHTML` is never used.
 - **Input limits.** Chat input is capped at 280 characters and answers at 40.
 - **Safe storage.** Saved progress from localStorage is parsed inside `try/catch` and type-checked before use, so bad or tampered data just resets the game.
-- **Dependencies:** `npm audit` reports 0 vulnerabilities (Vite 6, patched esbuild).
-- **Snyk:** run a code + open-source scan before submitting (see below).
+- **Dependencies:** `npm audit` reports 0 vulnerabilities. Two dev-only transitive issues that Snyk found (`esbuild` under Vite, `uri-js` under ESLint) are pinned to safe versions through `overrides` in `package.json`.
+- **Snyk: 0 issues** across Snyk Code (static analysis), open source (production dependencies) and open source with `--dev` (all 224 dependencies).
 
 ## Run it locally
 
@@ -74,6 +74,8 @@ npm run lint
 ```
 
 ## Snyk scan
+
+Latest results: **0 issues** from `snyk code test`, `snyk test` and `snyk test --dev`.
 
 ```bash
 npx snyk auth
