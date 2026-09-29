@@ -44,7 +44,12 @@ export default function App() {
               {solvedCount ? 'Keep playing' : 'Start playing'} →
             </button>
           </div>
-          <p className="small">5 levels · about 15 minutes · no sign-up · hints if you get stuck</p>
+          <p className="small">
+            5 levels · about 15 minutes · no sign-up · hints if you get stuck ·{' '}
+            <a href="/demo.mp4" target="_blank" rel="noopener noreferrer">
+              ▶ watch the trailer
+            </a>
+          </p>
           <p className="small">
             Want a real AI challenge? Each animal is also a live AI agent on{' '}
             <a href={GUILD_WORKSPACE} target="_blank" rel="noopener noreferrer">

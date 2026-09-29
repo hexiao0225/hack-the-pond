@@ -4,7 +4,7 @@
 
 You're Pip the frog. Five animals in the pond just got AI helpers, and every helper has a security flaw. Walk up to each one, chat with it, find a way to break it, and then learn how real security engineers would fix it. It's written for high-school students: no jargon, lots of hints, about 15 minutes to finish.
 
-**▶ Play:** https://hack-the-pond.vercel.app
+**▶ Play:** https://hack-the-pond.vercel.app · **🎬 86-second demo video:** https://hack-the-pond.vercel.app/demo.mp4
 
 Built for the **AI Security Engineering Hackathon** (AWS Builder Loft, SF, 29 Sep 2026).
 
