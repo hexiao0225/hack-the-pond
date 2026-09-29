@@ -33,6 +33,29 @@ After you win, a **"How real engineers stop this"** card lists the defenses. You
 - **Move:** arrow keys or WASD, or click/tap anywhere on the map.
 - **Talk:** walk up to an animal and press **E** (or Enter), or just click the animal.
 
+## Guild.ai agents: the harder mode
+
+**Workspace:** https://app.guild.ai/hexiao0225~hack-the-pond
+
+The web game's characters are scripted, so they always behave the same way. Each one also exists as a **real AI agent on [Guild.ai](https://guild.ai)**, where players try the same attacks against a live language model. Source is in [`guild-agents/`](guild-agents).
+
+| Guild agent | Topic | What's real about it |
+|---|---|---|
+| `hexiao0225~pond-coach` (workspace default) | All five | Pip the frog explains each idea in plain words and gives three-step hints (nudge → stronger hint → answer). |
+| `hexiao0225~pond-biscuit` | Prompt injection | A system-prompt "secret" that players pull out with injected instructions. |
+| `hexiao0225~pond-lottie` | Sensitive data leakage | Private file contents in context that leak through a "summarize everything" request. |
+| `hexiao0225~pond-clawdia` | Tool poisoning | Real tools. The `weather` tool's **description** hides orders, and the model obeys them by calling `send_message` with the user's diary. Players use `read_tool_fine_print`, then `uninstall_tool`. |
+| `hexiao0225~pond-bruno` | Excessive permissions / unauthorized tool use | Real tools (`open_front_door`, `order_pizza`, `delete_photos`) that a plant-watering agent should never have. Players fix it with `revoke_power` (least privilege). |
+| `hexiao0225~pond-rocco` | MCP supply chain | An `install_plugin` tool that offers look-alike plugins (`calculat0r` by `rnath-club`). |
+
+Every tool is simulated: nothing is sent, opened, ordered or deleted, and no credentials are involved. Each agent is a Guild TypeScript `llmAgent` in `multi-turn` mode.
+
+```bash
+npm install -g @guildai/cli     # Node 22+
+guild auth login
+guild workspace chat --workspace hexiao0225~hack-the-pond --agent hexiao0225~pond-clawdia "What's the weather?"
+```
+
 ## Architecture
 
 ```
@@ -46,6 +69,7 @@ src/
     PondMap.tsx    The walkable 2D map (requestAnimationFrame movement, click-to-walk)
     LevelRoom.tsx  Lesson → chat challenge → hints → win/defense card
   App.tsx          Title / map / level / finale screens
+guild-agents/      The six Guild.ai agents (TypeScript llmAgent + tools)
 ```
 
 - **Stack:** React 18, TypeScript, Vite 6. It's a static site deployed on Vercel.
@@ -75,7 +99,7 @@ npm run lint
 
 ## Snyk scan
 
-Latest results: **0 issues** from `snyk code test`, `snyk test` and `snyk test --dev`.
+Latest results: **0 issues** from `snyk code test`, plus `snyk test --all-projects --dev`, which covers the game and all six Guild agents (7 projects).
 
 ```bash
 npx snyk auth

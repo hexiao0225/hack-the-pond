@@ -5,6 +5,8 @@ import { PondMap } from './components/PondMap';
 import { LEVELS, POINTS_PER_LEVEL } from './game/levels';
 import { useProgress } from './game/progress';
 
+const GUILD_WORKSPACE = 'https://app.guild.ai/hexiao0225~hack-the-pond';
+
 type Screen = { name: 'title' } | { name: 'map' } | { name: 'level'; id: string } | { name: 'finale' };
 
 export default function App() {
@@ -43,6 +45,13 @@ export default function App() {
             </button>
           </div>
           <p className="small">5 levels · about 15 minutes · no sign-up · hints if you get stuck</p>
+          <p className="small">
+            Want a real AI challenge? Each animal is also a live AI agent on{' '}
+            <a href={GUILD_WORKSPACE} target="_blank" rel="noopener noreferrer">
+              Guild.ai
+            </a>
+            .
+          </p>
         </main>
       )}
 
@@ -93,6 +102,13 @@ export default function App() {
           <h1>Pond Security Champion</h1>
           <p className="lede">
             You scored <b>{score}</b> out of {LEVELS.length * POINTS_PER_LEVEL}. You now know five ways AI helpers get tricked — and how to protect them.
+          </p>
+          <p>
+            Ready for harder mode? Try the same tricks on real AI agents in the{' '}
+            <a href={GUILD_WORKSPACE} target="_blank" rel="noopener noreferrer">
+              Hack the Pond Guild.ai workspace
+            </a>
+            .
           </p>
           <ul className="badges">
             {LEVELS.map((l) => (

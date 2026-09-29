@@ -64,6 +64,12 @@ li {
   line-height: 1.5;
 }
 
+a {
+  color: var(--ink);
+  font-weight: 800;
+  text-decoration-thickness: 2px;
+}
+
 .app {
   position: relative;
   max-width: 1120px;
